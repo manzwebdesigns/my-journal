@@ -1,0 +1,62 @@
+<VirtualHost *:80>
+  ServerName mj.lndo.site
+
+  ServerAdmin webmaster@localhost
+  DocumentRoot ${LANDO_WEBROOT}
+  <Directory />
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+    Require all granted
+  </Directory>
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+  SetEnv BACKDROP_SETTINGS ${BACKDROP_SETTINGS}
+  SetEnvIf x-forwarded-proto https HTTPS=on
+
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+  <VirtualHost *:443>
+    ServerAdmin webmaster@localhost
+    ServerName mj.lndo.site
+
+    DocumentRoot ${LANDO_WEBROOT}
+    <Directory />
+      Options Indexes FollowSymLinks MultiViews
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+      Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine on
+
+    SSLCertificateFile "/certs/cert.crt"
+    SSLCertificateKeyFile "/certs/cert.key"
+
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+        SSLOptions +StdEnvVars
+    </FilesMatch>
+    <Directory /usr/lib/cgi-bin>
+        SSLOptions +StdEnvVars
+    </Directory>
+
+    BrowserMatch "MSIE [2-6]" \
+        nokeepalive ssl-unclean-shutdown \
+        downgrade-1.0 force-response-1.0
+    # MSIE 7 and newer should be able to use keepalive
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+    # Pass some common ENVs, its ok if this fails
+    SetEnv BACKDROP_SETTINGS ${BACKDROP_SETTINGS}
+    SetEnvIf x-forwarded-proto https HTTPS=on
+
+  </VirtualHost>
+</IfModule>

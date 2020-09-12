@@ -1,0 +1,158 @@
+name: mj
+recipe: lamp
+
+config:
+    php: 7.4
+    via: apache
+    webroot: public
+    database: mariadb
+    xdebug: false
+    ssl: false
+    config:
+        php: .lando/php.ini
+
+env_file:
+    - .env
+
+proxy:
+    mailhog:
+        - mail.lndo.site
+    appserver:
+        - mj.lndo.site
+    pma:
+        - pma.lndo.site
+
+services:
+    pma:
+        type: phpmyadmin
+        hosts:
+            - database
+
+    appserver:
+        ssl: false
+        build_as_root:
+            - apt update && apt upgrade -y && apt autoremove -y
+            - wget https://get.symfony.com/cli/installer && bash installer --install-dir=/usr/local/bin && rm -f installer
+        run_as_root:
+            - ln -snf /usr/share/zoneinfo/America/Detroit /etc/localtime
+            - echo "America/Detroit" > /etc/timezone
+        type: php:7.4
+        via: apache
+        webroot: public
+        xdebug: false
+        composer: []
+        config:
+            vhosts: ./.lando/vhosts.cnf
+        overrides:
+            environment:
+                PHP_IDE_CONFIG: "serverName=appserver"
+
+    cache:
+        type: redis
+        persist: true
+
+    node:
+        type: node
+        globals:
+            gulp-cli: latest
+
+    database:
+        port: 3306
+        type: mariadb
+        portforward: true
+        host: database
+        run_as_root:
+            - ln -snf /usr/share/zoneinfo/America/Detroit /etc/localtime
+            - echo "America/Detroit" > /etc/timezone
+        creds:
+            user: mj
+            password: mj
+            database: mj
+
+    mailhog:
+        type: mailhog
+        hogfrom:
+            - appserver
+
+tooling:
+    php-version:
+        service: :service
+        cmd: php -v
+        options:
+            service:
+                default: appserver
+                describe: Run php in different service
+
+    refresh:
+        description: Refresh (composer install, reload config, clear cache, etc.)
+        service: appserver
+        cmd:
+            - rm -rf vendor/ composer.lock
+            - composer install
+
+    phpcs:
+        description: Run PHP Code Sniffer
+        service: appserver
+        cmd: ./bin/phpcs
+
+    redis-cli:
+        service: cache
+
+    cscripts:
+        service: appserver
+        description: Runs composer auto-scripts
+        cmd: composer auto-scripts
+    creq:
+        service: appserver
+        description: Runs composer require
+        cmd: composer req
+    cinstall:
+        service: appserver
+        description: Runs composer install
+        cmd: composer install
+    cupdate:
+        service: appserver
+        description: Runs composer update
+        cmd: composer update
+    npm:
+        service: node
+    node:
+        service: node
+    gulp:
+        service: node
+    yarn:
+        service: node
+    console:
+        service: appserver
+        cmd: php bin/console
+    php:
+        service: appserver
+        cmd: php
+    phpunit:
+        service: appserver
+        cmd: bin/phpunit
+    mysql:
+        service: database
+        description: Drops into a MySQL shell on a database service
+        cmd: mysql -uroot mj
+    symfony:
+        service: appserver
+        cmd: symfony
+    git:
+        service: appserver
+        cmd: git
+    xdbg-on:
+        service: appserver
+        description: Enable xdebug for apache.
+        cmd: docker-php-ext-enable xdebug && /etc/init.d/apache2 reload
+        user: root
+    xdbg-off:
+        service: appserver
+        description: Disable xdebug for apache.
+        cmd: rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
+        user: root
+    update-deps:
+        service: database
+        description: Updates the installed packages on my database service
+        cmd: apt update -y && apt upgrade -y && apt autoremove -y
+        user: root
