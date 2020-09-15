@@ -1,15 +1,4 @@
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Command;
+<?php namespace App\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -39,15 +28,34 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class DeleteUserCommand extends Command
 {
-    protected static $defaultName = 'app:delete-user';
+	/**
+	 * @var string
+	 */
+	protected static $defaultName = 'app:delete-user';
 
     /** @var SymfonyStyle */
     private $io;
-    private $entityManager;
-    private $validator;
-    private $users;
+	/**
+	 * @var EntityManagerInterface
+	 */
+	private $entityManager;
+	/**
+	 * @var Validator
+	 */
+	private $validator;
+	/**
+	 * @var UserRepository
+	 */
+	private $users;
 
-    public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users)
+	/**
+	 * DeleteUserCommand constructor.
+	 *
+	 * @param EntityManagerInterface $em
+	 * @param Validator $validator
+	 * @param UserRepository $users
+	 */
+	public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users)
     {
         parent::__construct();
 
@@ -77,7 +85,11 @@ HELP
             );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
+	/**
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 */
+	protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // SymfonyStyle is an optional feature that Symfony provides so you can
         // apply a consistent look to the commands of your application.
@@ -85,7 +97,11 @@ HELP
         $this->io = new SymfonyStyle($input, $output);
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+	/**
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 */
+	protected function interact(InputInterface $input, OutputInterface $output): void
     {
         if (null !== $input->getArgument('username')) {
             return;
@@ -106,12 +122,18 @@ HELP
         $input->setArgument('username', $username);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+	/**
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 *
+	 * @return int
+	 */
+	protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $this->validator->validateUsername($input->getArgument('username'));
 
         /** @var User $user */
-        $user = $this->users->findOneByUsername($username);
+        $user = $this->users->findOneBy( (array) $username );
 
         if (null === $user) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));

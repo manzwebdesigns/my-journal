@@ -1,25 +1,12 @@
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Command;
+<?php namespace App\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\{InputInterface, InputOption};
+use Symfony\Component\Console\Output\{BufferedOutput, OutputInterface};
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\{Exception\TransportExceptionInterface, MailerInterface};
 use Symfony\Component\Mime\Email;
 
 /**
@@ -42,9 +29,9 @@ class ListUsersCommand extends Command
     // a good practice is to use the 'app:' prefix to group all your custom application commands
     protected static $defaultName = 'app:list-users';
 
-    private $mailer;
+    private MailerInterface $mailer;
     private $emailSender;
-    private $users;
+    private UserRepository $users;
 
     public function __construct(MailerInterface $mailer, $emailSender, UserRepository $users)
     {
@@ -86,10 +73,16 @@ HELP
         ;
     }
 
-    /**
-     * This method is executed after initialize(). It usually contains the logic
-     * to execute to complete this command task.
-     */
+	/**
+	 * This method is executed after initialize(). It usually contains the logic
+	 * to execute to complete this command task.
+	 *
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 *
+	 * @return int
+	 * @throws TransportExceptionInterface
+	 */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $maxResults = $input->getOption('max-results');
@@ -97,7 +90,7 @@ HELP
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
-        $usersAsPlainArrays = array_map(function (User $user) {
+        $usersAsPlainArrays = array_map(static function (User $user) {
             return [
                 $user->getId(),
                 $user->getFullName(),
@@ -130,9 +123,12 @@ HELP
         return 0;
     }
 
-    /**
-     * Sends the given $contents to the $recipient email address.
-     */
+	/**
+	 * Sends the given $contents to the $recipient email address.
+	 * @param string $contents
+	 * @param string $recipient
+	 * @throws TransportExceptionInterface
+*/
     private function sendReport(string $contents, string $recipient): void
     {
         $email = (new Email())

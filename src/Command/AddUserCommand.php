@@ -1,15 +1,4 @@
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Command;
+<?php namespace App\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -17,9 +6,7 @@ use App\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -50,17 +37,20 @@ class AddUserCommand extends Command
 {
     // to make your command lazily loaded, configure the $defaultName static property,
     // so it will be instantiated only when the command is actually called.
-    protected static $defaultName = 'app:add-user';
+	/**
+	 * @var string
+	 */
+	protected static $defaultName = 'app:add-user';
 
     /**
      * @var SymfonyStyle
      */
-    private $io;
+	private SymfonyStyle $io;
 
-    private $entityManager;
-    private $passwordEncoder;
-    private $validator;
-    private $users;
+	private EntityManagerInterface $entityManager;
+	private UserPasswordEncoderInterface $passwordEncoder;
+	private Validator $validator;
+	private UserRepository $users;
 
     public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users)
     {
@@ -90,10 +80,13 @@ class AddUserCommand extends Command
         ;
     }
 
-    /**
-     * This optional method is the first one executed for a command after configure()
-     * and is useful to initialize properties based on the input arguments and options.
-     */
+	/**
+	 * This optional method is the first one executed for a command after configure()
+	 * and is useful to initialize properties based on the input arguments and options.
+	 *
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // SymfonyStyle is an optional feature that Symfony provides so you can
@@ -102,17 +95,19 @@ class AddUserCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
     }
 
-    /**
-     * This method is executed after initialize() and before execute(). Its purpose
-     * is to check if some of the options/arguments are missing and interactively
-     * ask the user for those values.
-     *
-     * This method is completely optional. If you are developing an internal console
-     * command, you probably should not implement this method because it requires
-     * quite a lot of work. However, if the command is meant to be used by external
-     * users, this method is a nice way to fall back and prevent errors.
-     */
-    protected function interact(InputInterface $input, OutputInterface $output)
+	/**
+	 * This method is executed after initialize() and before execute(). Its purpose
+	 * is to check if some of the options/arguments are missing and interactively
+	 * ask the user for those values.
+	 *
+	 * This method is completely optional. If you are developing an internal console
+	 * command, you probably should not implement this method because it requires
+	 * quite a lot of work. However, if the command is meant to be used by external
+	 * users, this method is a nice way to fall back and prevent errors.
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 */
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
         if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
             return;
@@ -165,10 +160,13 @@ class AddUserCommand extends Command
         }
     }
 
-    /**
-     * This method is executed after interact() and initialize(). It usually
-     * contains the logic to execute to complete this command task.
-     */
+	/**
+	 * This method is executed after interact() and initialize(). It usually
+	 * contains the logic to execute to complete this command task.
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 * @return int
+	 */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = new Stopwatch();
