@@ -2,30 +2,13 @@
 
 {% block body_id 'homepage' %}
 
-{#
-    the homepage is a special page which displays neither a header nor a footer.
-    this is done with the 'trick' of defining empty Twig blocks without any content
-#}
-{% block header %}{% endblock %}
-{% block footer %}{% endblock %}
-
-{% block body %}
-    <div class="page-header">
-        <h1>Welcome to My Journal</h1>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="jumbotron">
-                <p>
-                    {{ 'title.login'|trans|raw }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('security_login') }}">
-                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
+{% block main %}
+    <p>
+        {{ 'title.login'|trans|raw }}
+    </p>
+    <p>
+        <a class="btn btn-primary btn-lg" href="{{ path('security_login') }}">
+            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}
+        </a>
+    </p>
 {% endblock %}

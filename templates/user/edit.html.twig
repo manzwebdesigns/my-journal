@@ -3,8 +3,6 @@
 {% block body_id 'user_edit' %}
 
 {% block main %}
-    <h1>{{ 'title.edit_user'|trans }}</h1>
-
     {{ form_start(form) }}
         {{ form_widget(form) }}
 
@@ -15,13 +13,9 @@
 {% endblock %}
 
 {% block sidebar %}
-    <div class="section">
-        <a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
-            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.change_password'|trans }}
-        </a>
-    </div>
+    <a href="{{ path('user_change_password') }}" class="btn btn-lg btn-block btn-danger">
+        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.change_password'|trans }}
+    </a>
 
     {{ parent() }}
-
-    {{ show_source_code(_self) }}
 {% endblock %}

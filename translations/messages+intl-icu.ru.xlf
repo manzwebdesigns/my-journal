@@ -58,7 +58,7 @@
 
             <trans-unit id="title.homepage">
                 <source>title.homepage</source>
-                <target><![CDATA[Добро пожаловать в <strong>Symfony Demo</strong> приложение]]></target>
+                <target><![CDATA[Добро пожаловать в <strong>My Journal</strong> приложение]]></target>
             </trans-unit>
             <trans-unit id="title.source_code">
                 <source>title.source_code</source>
@@ -340,7 +340,7 @@
                 <source>post.search_no_results</source>
                 <target>Ничего не найдено</target>
             </trans-unit>
-            
+
             <trans-unit id="user.updated_successfully">
                 <source>user.updated_successfully</source>
                 <target>Информация о пользователе успешно обновлена!</target>
@@ -411,7 +411,7 @@
                 <source>help.comment_content</source>
                 <target>Комментарии, не соответствующие нашему Кодексу поведения, будут модерироваться.</target>
             </trans-unit>
-            
+
             <trans-unit id="info.change_password">
                 <source>info.change_password</source>
                 <target>После изменения пароля Вам потребуется заново авторизоваться в приложении.</target>
@@ -419,11 +419,11 @@
 
             <trans-unit id="rss.title">
                 <source>rss.title</source>
-                <target>Symfony Demo блог</target>
+                <target>My Journal блог</target>
             </trans-unit>
             <trans-unit id="rss.description">
                 <source>rss.description</source>
-                <target>Самые последние записи, опубликованные в Symfony Demo блоге</target>
+                <target>Самые последние записи, опубликованные в My Journal блоге</target>
             </trans-unit>
 
             <trans-unit id="paginator.previous">

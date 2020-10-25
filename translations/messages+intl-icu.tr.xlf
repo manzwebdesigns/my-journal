@@ -58,7 +58,7 @@
 
             <trans-unit id="title.homepage">
                 <source>title.homepage</source>
-                <target><![CDATA[<Strong> Symfony Demo </strong> uygulamasına hoş geldiniz]]></target>
+                <target><![CDATA[<Strong> My Journal </strong> uygulamasına hoş geldiniz]]></target>
             </trans-unit>
             <trans-unit id="title.source_code">
                 <source>title.source_code</source>
@@ -353,11 +353,11 @@
 
             <trans-unit id="rss.title">
                 <source>rss.title</source>
-                <target>Symfony Demo blogu</target>
+                <target>My Journal blogu</target>
             </trans-unit>
             <trans-unit id="rss.description">
                 <source>rss.description</source>
-                <target>Symfony Demo blogunda yayınlanan son yazılar</target>
+                <target>My Journal blogunda yayınlanan son yazılar</target>
             </trans-unit>
         </body>
     </file>
