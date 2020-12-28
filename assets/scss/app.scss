@@ -103,7 +103,6 @@ header .locales a:hover small {
 
 footer {
   background: #ecf0f1;
-  margin-top: 2em;
   padding-top: 2em;
   padding-bottom: 2em
 }
@@ -124,27 +123,8 @@ footer #footer-resources i {
   margin-left: 0.5em
 }
 
-#sourceCodeModal h3 {
-  font-size: 19px;
-  margin-top: 0
-}
-
-#sourceCodeModal h3 small {
-  color: #7b8a8b;
-  font-size: 80%
-}
-
-#sourceCodeModal pre {
-  margin-bottom: 2em;
-  padding: 0
-}
-
-#confirmationModal .modal-dialog {
-  width: 500px
-}
-
-#confirmationModal .modal-footer button {
-  min-width: 75px
+footer #footer-copyright {
+  text-align: left;
 }
 
 /* Misc. elements
@@ -202,7 +182,7 @@ body#requirements_checker .panel li {
 
 /* Page: 'Homepage'
    ------------------------------------------------------------------------- */
-body#homepage {
+body#homepage #main {
   text-align: center
 }
 

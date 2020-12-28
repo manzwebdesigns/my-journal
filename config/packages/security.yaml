@@ -1,9 +1,11 @@
 security:
+    enable_authenticator_manager: true
     encoders:
         # Our user class and the algorithm we'll use to encode passwords
         # 'auto' means to let Symfony choose the best possible password hasher (Argon2 or Bcrypt)
         # https://symfony.com/doc/current/security.html#c-encoding-passwords
-        App\Entity\User: 'auto'
+        App\Entity\User:
+            algorithm: auto
 
     providers:
         # https://symfony.com/doc/current/security/user_provider.html
@@ -25,7 +27,7 @@ security:
 
             # but the firewall does not require login on every page
             # denying access is done in access_control or in your controllers
-            anonymous: true
+            #anonymous: true
             lazy: true
 
             # The user provider to use.
@@ -41,7 +43,7 @@ security:
                 login_path: security_login
                 # Secure the login form against CSRF
                 # Reference: https://symfony.com/doc/current/security/csrf.html#csrf-protection-in-login-forms
-                csrf_token_generator: security.csrf.token_manager
+                #csrf_token_generator: security.csrf.token_manager
                 # The page users are redirect to when there is no previous page stored in the
                 # session (for example when the users access directly to the login page).
                 default_target_path: app_index
@@ -55,9 +57,11 @@ security:
     # Used to restrict access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # this is a catch-all for the admin area
-        # additional security lives in the controllers
-        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+        # matches /admin/users/*
+        - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
+
+        # matches /admin/* except for anything matching the above rule
+        - { path: '^/admin', roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

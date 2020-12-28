@@ -1,15 +1,4 @@
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Form\Type;
+<?php namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -21,8 +10,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Defines the custom form field type used to change user's password.
- *
- * @author Romain Monteil <monteil.romain@gmail.com>
  */
 class ChangePasswordType extends AbstractType
 {
@@ -36,7 +23,7 @@ class ChangePasswordType extends AbstractType
                 'constraints' => [
                     new UserPassword(),
                 ],
-                'label' => 'label.current_password',
+                'label' => 'Current password',
                 'attr' => [
                     'autocomplete' => 'off',
                 ],
@@ -51,10 +38,10 @@ class ChangePasswordType extends AbstractType
                     ]),
                 ],
                 'first_options' => [
-                    'label' => 'label.new_password',
+                    'label' => 'New password',
                 ],
                 'second_options' => [
-                    'label' => 'label.new_password_confirm',
+                    'label' => 'Confirm new password',
                 ],
             ])
         ;

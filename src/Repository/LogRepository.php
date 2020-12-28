@@ -1,9 +1,8 @@
-<?php
-
-namespace App\Repository;
+<?php namespace App\Repository;
 
 use App\Entity\Log;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,37 +13,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LogRepository extends ServiceEntityRepository
 {
+    /**
+     * LogRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Log::class);
     }
 
-    // /**
-    //  * @return Log[] Returns an array of Log objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $date
+     *
+     * @return Log|null
+     * @throws NonUniqueResultException
+     */
+    public function findOneByLogDate($date): ?Log
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Log
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('l.log_date = :val')
+            ->setParameter('val', $date)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

@@ -7,7 +7,7 @@
     {{ encore_entry_script_tags('login') }}
 {% endblock %}
 
-{% block main %}
+{% block body %}
     {% if error %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -18,22 +18,26 @@
         <div class="well">
             <form action="{{ path('security_login') }}" method="post">
                 <fieldset>
-                    <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</legend>
+                    <legend><i class="fa fa-lock" aria-hidden="true"></i> Secure Login</legend>
                     <div class="form-group">
-                        <label for="username">{{ 'label.username'|trans }}</label>
+                        <label class="required" for="username">Username</label>
                         <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label for="password">{{ 'label.password'|trans }}</label>
+                        <label class="required" for="password">Password</label>
                         <input type="password" id="password" name="_password" class="form-control" />
                     </div>
                     <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'action.sign_in'|trans }}
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                     </button>
                 </fieldset>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
 {% endblock %}

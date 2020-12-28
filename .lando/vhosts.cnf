@@ -1,7 +1,7 @@
 <VirtualHost *:80>
   ServerName mj.lndo.site
 
-  ServerAdmin webmaster@localhost
+  ServerAdmin admin@manzwebdesigns.com
   DocumentRoot ${LANDO_WEBROOT}
   <Directory />
     Options Indexes FollowSymLinks MultiViews
@@ -21,7 +21,7 @@
 
 <IfModule mod_ssl.c>
   <VirtualHost *:443>
-    ServerAdmin webmaster@localhost
+    ServerAdmin admin@manzwebdesigns.com
     ServerName mj.lndo.site
 
     DocumentRoot ${LANDO_WEBROOT}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.fullName }}'s log listing!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ user.fullName }}! ✅</h1>
+
+    {% for l in log %}
+        <div class="border border-dark">
+            Log Date: {{ l.LogDate|date('yy-m-d') }}<a href="{{ path('edit_log', {'id': l.id}) }}" class="btn btn-warning pull-right">Edit</a><br>
+            Log Entry: {{ l.LogMessage|raw }}<br>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

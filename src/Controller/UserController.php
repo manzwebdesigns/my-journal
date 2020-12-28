@@ -1,22 +1,9 @@
-<?php
+<?php namespace App\Controller;
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Controller;
-
-use App\Form\Type\ChangePasswordType;
-use App\Form\UserType;
+use App\Form\Type\{ChangePasswordType, UserType};
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -32,6 +19,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/edit", methods="GET|POST", name="user_edit")
+     * @param Request $request
+     * @return Response
      */
     public function edit(Request $request): Response
     {
@@ -56,6 +45,9 @@ class UserController extends AbstractController
 
     /**
      * @Route("/change-password", methods="GET|POST", name="user_change_password")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
      */
     public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
     {

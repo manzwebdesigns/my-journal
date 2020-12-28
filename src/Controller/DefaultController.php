@@ -12,11 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
-	/**
-	 * @return Response
-	 * @Route("/", name="index")
-	 */
-	public function index(): Response {
-		return $this->render('default/index.html.twig', []);
-	}
+    /**
+     * @return Response
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        return $this->render('default/index.html.twig', []);
+    }
 }

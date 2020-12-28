@@ -2,13 +2,32 @@
 
 {% block body_id 'homepage' %}
 
-{% block main %}
-    <p>
-        {{ 'title.login'|trans|raw }}
-    </p>
-    <p>
-        <a class="btn btn-primary btn-lg" href="{{ path('security_login') }}">
-            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}
-        </a>
-    </p>
+{% block body %}
+    <div class="page-header">
+        <h1>My Journal</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {% if app.user %}
+                <div class="jumbotron">
+                    <p>You are logged in!</p>
+                    <p>
+                        <a href="{{ path('security_logout') }}">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                        </a>
+                    </p>
+                </div>
+            {% else %}
+            <div class="jumbotron">
+                <p>Secure Login</p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('security_login') }}">
+                        <i class="fa fa-lock" aria-hidden="true"></i> Login
+                    </a>
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,15 +1,4 @@
-<?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace App\Controller;
+<?php namespace App\Controller;
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,14 +20,14 @@ class SecurityController extends AbstractController
 {
     use TargetPathTrait;
 
-	/**
-	 * @Route("/login", name="security_login")
-	 * @param Request $request
-	 * @param Security $security
-	 * @param AuthenticationUtils $helper
-	 *
-	 * @return Response
-	 */
+    /**
+     * @Route("/login", name="security_login")
+     * @param Request $request
+     * @param Security $security
+     * @param AuthenticationUtils $helper
+     *
+     * @return Response
+     */
     public function login(Request $request, Security $security, AuthenticationUtils $helper): Response
     {
         // if user is already logged in, don't display the login page again
@@ -60,15 +49,15 @@ class SecurityController extends AbstractController
         ]);
     }
 
-	/**
-	 * This is the route the user can use to logout.
-	 *
-	 * But, this will never be executed. Symfony will intercept this first
-	 * and handle the logout automatically. See logout in config/packages/security.yaml
-	 *
-	 * @Route("/logout", name="security_logout")
-	 * @throws Exception
-	 */
+    /**
+     * This is the route the user can use to logout.
+     *
+     * But, this will never be executed. Symfony will intercept this first
+     * and handle the logout automatically. See logout in config/packages/security.yaml
+     *
+     * @Route("/logout", name="security_logout")
+     * @throws Exception
+     */
     public function logout(): void
     {
         throw new Exception('This should never be reached!');
