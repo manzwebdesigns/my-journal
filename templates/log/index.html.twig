@@ -14,7 +14,7 @@
     {% for l in log %}
         <div class="border border-dark">
             Log Date: {{ l.LogDate|date('yy-m-d') }}<a href="{{ path('edit_log', {'id': l.id}) }}" class="btn btn-warning pull-right">Edit</a><br>
-            Log Entry: {{ l.LogMessage|raw }}<br>
+            Log Entry: {{ l.LogMessage|raw }}
         </div>
     {% endfor %}
 </div>

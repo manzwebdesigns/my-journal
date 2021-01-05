@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 .paper {
     font: normal 12px/1.5 "Lucida Grande", arial, sans-serif;
     width: 90vw;
-    height: 80vh;
+    min-height: 80vh;
     margin: 0 auto;
     padding: 6px 5px 4px 42px;
     position: relative;
@@ -83,12 +83,12 @@ footer {
     margin-top: 0;
 }
 
-.border {
+.border.border-dark {
     padding: 6px;
     border-radius: 6px;
     margin-bottom: 12px;
 }
 
-.border p {
+.border.border-dark p {
     margin-bottom: 0.5em;
 }
