@@ -27,3 +27,6 @@ yarn-error.log
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
 /.Halite.key
+.lando/.env
+/.idea
+/*.sql*

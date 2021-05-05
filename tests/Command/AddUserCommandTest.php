@@ -12,7 +12,9 @@
 namespace App\Tests\Command;
 
 use App\Command\AddUserCommand;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -78,7 +80,7 @@ class AddUserCommandTest extends KernelTestCase
      * This is used to execute the same test twice: first for normal users
      * (isAdmin = false) and then for admin users (isAdmin = true).
      */
-    public function isAdminDataProvider(): ?\Generator
+    public function isAdminDataProvider(): ?Generator
     {
         yield [false];
         yield [true];
@@ -92,7 +94,7 @@ class AddUserCommandTest extends KernelTestCase
     {
         $container = self::$container;
 
-        /** @var \App\Entity\User $user */
+        /** @var User $user */
         $user = $container->get(UserRepository::class)->findOneByEmail($this->userData['email']);
         $this->assertNotNull($user);
 

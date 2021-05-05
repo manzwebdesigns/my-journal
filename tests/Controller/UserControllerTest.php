@@ -11,7 +11,9 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,7 +49,7 @@ class UserControllerTest extends WebTestCase
         );
     }
 
-    public function getUrlsForAnonymousUsers(): ?\Generator
+    public function getUrlsForAnonymousUsers(): ?Generator
     {
         yield ['GET', '/en/profile/edit'];
         yield ['GET', '/en/profile/change-password'];
@@ -68,7 +70,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/en/profile/edit', Response::HTTP_FOUND);
 
-        /** @var \App\Entity\User $user */
+        /** @var User $user */
         $user = self::$container->get(UserRepository::class)->findOneByEmail($newUserEmail);
 
         $this->assertNotNull($user);

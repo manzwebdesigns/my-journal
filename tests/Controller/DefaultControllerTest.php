@@ -12,6 +12,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Post;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -78,14 +79,14 @@ class DefaultControllerTest extends WebTestCase
         );
     }
 
-    public function getPublicUrls(): ?\Generator
+    public function getPublicUrls(): ?Generator
     {
         yield ['/'];
         yield ['/en/blog/'];
         yield ['/en/login'];
     }
 
-    public function getSecureUrls(): ?\Generator
+    public function getSecureUrls(): ?Generator
     {
         yield ['/en/admin/post/'];
         yield ['/en/admin/post/new'];

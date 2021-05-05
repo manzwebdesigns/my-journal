@@ -8,7 +8,7 @@ $(function() {
 
     function anchor(url, content) {
         return '<a class="doclink" target="_blank" href="' + url + '">' + content + '</a>';
-    };
+    }
 
     // Wraps links to the Symfony documentation
     $modal.find('.hljs-comment').each(function() {

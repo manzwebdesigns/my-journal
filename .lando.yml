@@ -1,5 +1,5 @@
 name: mj
-recipe: lamp
+recipe: symfony
 
 config:
     php: 7.4
@@ -11,9 +11,12 @@ config:
     config:
         php: .lando/php.ini
 
+env_file:
+    - ./.lando/.env
+
 proxy:
     mailhog:
-        - mail.lndo.site
+        - email.lndo.site
     appserver:
         - mj.lndo.site
     pma:
@@ -29,7 +32,6 @@ services:
         ssl: false
         build_as_root:
             - apt update && apt upgrade -y && apt autoremove -y
-            - wget https://get.symfony.com/cli/installer && bash installer --install-dir=/usr/local/bin && rm -f installer
         run_as_root:
             - ln -snf /usr/share/zoneinfo/America/Detroit /etc/localtime
             - echo "America/Detroit" > /etc/timezone
@@ -74,6 +76,17 @@ services:
             - appserver
 
 tooling:
+    envoy:
+        service: appserver
+
+    pull:
+        service: appserver
+        description: Pull and import the database from production.
+        cmd:
+            -   appserver: envoy run pull
+            -   database: /helpers/sql-import.sh mj.sql.gz
+            -   appserver: rm mj.sql.gz
+
     php-version:
         service: :service
         cmd: php -v
@@ -101,55 +114,71 @@ tooling:
         service: appserver
         description: Runs composer auto-scripts
         cmd: composer auto-scripts
+
     creq:
         service: appserver
         description: Runs composer require
         cmd: composer req
+
     cinstall:
         service: appserver
         description: Runs composer install
         cmd: composer install
+
     cupdate:
         service: appserver
         description: Runs composer update
         cmd: composer update
+
     npm:
         service: node
+
     node:
         service: node
+
     gulp:
         service: node
+
     yarn:
         service: node
+
     console:
         service: appserver
         cmd: php bin/console
+
     php:
         service: appserver
         cmd: php
+
     phpunit:
         service: appserver
         cmd: bin/phpunit
+
     mysql:
         service: database
         description: Drops into a MySQL shell on a database service
         cmd: mysql -uroot mj
+
     symfony:
         service: appserver
         cmd: symfony
+
     git:
         service: appserver
         cmd: git
+
     xdbg-on:
         service: appserver
         description: Enable xdebug for apache.
         cmd: docker-php-ext-enable xdebug && /etc/init.d/apache2 reload
         user: root
+
     xdbg-off:
         service: appserver
         description: Disable xdebug for apache.
         cmd: rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
         user: root
+
     update-deps:
         service: database
         description: Updates the installed packages on my database service

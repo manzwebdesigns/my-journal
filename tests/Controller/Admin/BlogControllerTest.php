@@ -11,7 +11,9 @@
 
 namespace App\Tests\Controller\Admin;
 
+use App\Entity\Post;
 use App\Repository\PostRepository;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,7 +49,7 @@ class BlogControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function getUrlsForRegularUsers(): ?\Generator
+    public function getUrlsForRegularUsers(): ?Generator
     {
         yield ['GET', '/en/admin/post/'];
         yield ['GET', '/en/admin/post/1'];
@@ -95,7 +97,7 @@ class BlogControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_FOUND);
 
-        /** @var \App\Entity\Post $post */
+        /** @var Post $post */
         $post = self::$container->get(PostRepository::class)->findOneByTitle($postTitle);
         $this->assertNotNull($post);
         $this->assertSame($postSummary, $post->getSummary());
@@ -159,7 +161,7 @@ class BlogControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_FOUND);
 
-        /** @var \App\Entity\Post $post */
+        /** @var Post $post */
         $post = self::$container->get(PostRepository::class)->find(1);
         $this->assertSame($newBlogPostTitle, $post->getTitle());
     }

@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\Type\{ChangePasswordType, UserType};
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +52,8 @@ class UserController extends AbstractController
      */
     public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        $user = $this->getUser();
+	    /** @var User $user */
+	    $user = $this->getUser();
 
         $form = $this->createForm(ChangePasswordType::class);
         $form->handleRequest($request);

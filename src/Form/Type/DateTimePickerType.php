@@ -12,6 +12,7 @@
 namespace App\Form\Type;
 
 use App\Utils\MomentFormatConverter;
+use Locale;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormInterface;
@@ -42,7 +43,7 @@ class DateTimePickerType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['attr']['data-date-format'] = $this->formatConverter->convert($options['format']);
-        $view->vars['attr']['data-date-locale'] = u(\Locale::getDefault())->replace('_', '-')->lower();
+        $view->vars['attr']['data-date-locale'] = u( Locale::getDefault())->replace('_', '-')->lower();
     }
 
     /**

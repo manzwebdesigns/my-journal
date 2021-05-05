@@ -14,6 +14,8 @@ namespace App\Pagination;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
+use Traversable;
+use function count;
 
 /**
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -43,13 +45,13 @@ class Paginator
             ->setMaxResults($this->pageSize)
             ->getQuery();
 
-        if (0 === \count($this->queryBuilder->getDQLPart('join'))) {
+        if (0 === count($this->queryBuilder->getDQLPart('join'))) {
             $query->setHint(CountWalker::HINT_DISTINCT, false);
         }
 
         $paginator = new DoctrinePaginator($query, true);
 
-        $useOutputWalkers = \count($this->queryBuilder->getDQLPart('having') ?: []) > 0;
+        $useOutputWalkers = count($this->queryBuilder->getDQLPart('having') ?: []) > 0;
         $paginator->setUseOutputWalkers($useOutputWalkers);
 
         $this->results = $paginator->getIterator();
@@ -103,7 +105,7 @@ class Paginator
         return $this->numResults;
     }
 
-    public function getResults(): \Traversable
+    public function getResults(): Traversable
     {
         return $this->results;
     }
