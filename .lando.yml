@@ -53,6 +53,11 @@ services:
         persist: true
 
     node:
+        build_as_root:
+            - apt update && apt upgrade -y && apt autoremove -y
+        run_as_root:
+            - ln -snf /usr/share/zoneinfo/America/Detroit /etc/localtime
+            - echo "America/Detroit" > /etc/timezone
         type: node
         globals:
             gulp-cli: latest
@@ -62,6 +67,8 @@ services:
         type: mariadb
         portforward: true
         host: database
+        build_as_root:
+            - apt update && apt upgrade -y && apt autoremove -y
         run_as_root:
             - ln -snf /usr/share/zoneinfo/America/Detroit /etc/localtime
             - echo "America/Detroit" > /etc/timezone
@@ -87,20 +94,29 @@ tooling:
             -   database: /helpers/sql-import.sh mj.sql.gz
             -   appserver: rm mj.sql.gz
 
-    php-version:
-        service: :service
-        cmd: php -v
-        options:
-            service:
-                default: appserver
-                describe: Run php in different service
-
     refresh:
         description: Refresh (composer install, reload config, clear cache, etc.)
         service: appserver
         cmd:
             - rm -rf vendor/ composer.lock
             - composer install
+
+    update-deps:
+        service: :service
+        cmd: apt update -y && apt upgrade -y && apt autoremove -y
+        user: root
+        options:
+            service:
+                default: appserver
+                describe: Runs apt update on a specified service
+
+    php-version:
+        service: :service
+        cmd: php -v
+        options:
+            service:
+                default: appserver
+                describe: Run php in specified service
 
     phpcs:
         description: Run PHP Code Sniffer
@@ -177,10 +193,4 @@ tooling:
         service: appserver
         description: Disable xdebug for apache.
         cmd: rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
-        user: root
-
-    update-deps:
-        service: database
-        description: Updates the installed packages on my database service
-        cmd: apt update -y && apt upgrade -y && apt autoremove -y
         user: root
