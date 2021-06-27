@@ -27,6 +27,16 @@ yarn-error.log
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
 
+###> Yarn Zero-Installs ###
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+###< Yarn Zero-Installs ###
+
 /.Halite.key
 .lando/.env
 /.idea/
