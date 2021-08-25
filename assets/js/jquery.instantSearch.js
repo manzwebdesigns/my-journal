@@ -16,7 +16,7 @@
     // INSTANTS SEARCH PUBLIC CLASS DEFINITION
     // =======================================
 
-    var InstantSearch = function (element, options) {
+    const InstantSearch = function (element, options) {
         this.$input = $(element);
         this.$form = this.$input.closest('form');
         this.$preview = $('<ul class="search-preview list-group">').appendTo(this.$form);
@@ -42,10 +42,10 @@
     };
 
     InstantSearch.prototype.debounce = function () {
-        var delay = this.options.delay;
-        var search = this.search;
-        var timer = null;
-        var self = this;
+        const delay = this.options.delay;
+        const search = this.search;
+        let timer = null;
+        const self = this;
 
         return function () {
             clearTimeout(timer);
@@ -56,15 +56,15 @@
     };
 
     InstantSearch.prototype.search = function () {
-        var query = $.trim(this.$input.val()).replace(/\s{2,}/g, ' ');
+        const query = $.trim(this.$input.val()).replace(/\s{2,}/g, ' ');
         if (query.length < this.options.minQueryLength) {
             this.$preview.empty();
             return;
         }
 
-        var self = this;
-        var data = this.$form.serializeArray();
-        data['l'] = this.limit;
+        const self = this;
+        const data = self.$form.serializeArray();
+        data['l'] = self.limit;
 
         $.getJSON(this.$form.attr('action'), data, function (items) {
             self.show(items);
@@ -72,8 +72,8 @@
     };
 
     InstantSearch.prototype.show = function (items) {
-        var $preview = this.$preview;
-        var itemTemplate = this.options.itemTemplate;
+        const $preview = this.$preview;
+        const itemTemplate = this.options.itemTemplate;
 
         if (0 === items.length) {
             $preview.html(this.options.noResultsMessage);
@@ -90,9 +90,9 @@
 
     function Plugin(option) {
         return this.each(function () {
-            var $this = $(this);
-            var instance = $this.data('instantSearch');
-            var options = typeof option === 'object' && option;
+            const $this = $(this);
+            let instance = $this.data('instantSearch');
+            const options = typeof option === 'object' && option;
 
             if (!instance) $this.data('instantSearch', (instance = new InstantSearch(this, options)));
 

@@ -3,7 +3,7 @@ import 'typeahead.js';
 
 // Handling the modal confirmation message.
 $(document).on('submit', 'form[data-confirmation]', function (event) {
-    var $form = $(this),
+    const $form = $(this),
         $confirm = $('#confirmationModal');
 
     if ($confirm.data('result') !== 'yes') {

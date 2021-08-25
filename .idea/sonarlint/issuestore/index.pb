@@ -8,16 +8,8 @@ J
 public/assets/js/custom.js,e\8\e80349a74ffef6e2dfa31ec4c540d39323eeb445
 H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
-=
-composer.json,3\9\3957b91a0d8450cea0115cfd5af69eac90d75897
-@
-assets/js/app.js,a\1\a100a8b5c188567ddcb647c9e579d4f07284fe87
 A
 .lando/vhosts.cnf,e\e\eeeb19ee78aff05142ca923788a8c855fe6fc495
->
-.env.local.php,b\3\b312df9a5d2dbbae546de61df691cd82291450eb
-4
-.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 ;
