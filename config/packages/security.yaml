@@ -1,6 +1,6 @@
 security:
     enable_authenticator_manager: true
-    encoders:
+    password_hashers:
         # Our user class and the algorithm we'll use to encode passwords
         # 'auto' means to let Symfony choose the best possible password hasher (Argon2 or Bcrypt)
         # https://symfony.com/doc/current/security.html#c-encoding-passwords
@@ -12,6 +12,11 @@ security:
         # In this example, users are stored via Doctrine in the database
         # To see the users at src/App/DataFixtures/ORM/LoadFixtures.php
         # To load users from somewhere else: https://symfony.com/doc/current/security/user_provider.html#creating-a-custom-user-provider
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
         database_users:
             entity: { class: App\Entity\User, property: username }
 
@@ -54,14 +59,64 @@ security:
                 # The name of the route to redirect to after logging out
                 target: homepage
 
-    # Used to restrict access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
-    access_control:
-        # matches /admin/users/*
-        - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
+            # by default, the feature allows 5 login attempts per minute
+            login_throttling: null
 
-        # matches /admin/* except for anything matching the above rule
+#            # configure the maximum login attempts (per minute)
+#            login_throttling:
+#                max_attempts: 3
+#
+#            # configure the maximum login attempts in a custom period of time
+#            login_throttling:
+#                max_attempts: 3
+#                interval: '15 minutes'
+#
+#            # use a custom rate limiter via its service ID
+#            login_throttling:
+#                limiter: app.my_login_rate_limiter
+
+    access_control:
+        # require ROLE_ADMIN for /admin*
         - { path: '^/admin', roles: ROLE_ADMIN }
+
+        # or require ROLE_ADMIN or IS_AUTHENTICATED_FULLY for /admin*
+        - { path: '^/admin', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+
+        # the 'path' value can be any valid regular expression
+        # (this one will match URLs like /api/post/7298 and /api/comment/528491)
+        - { path: ^/api/(post|comment)/\d+$, roles: ROLE_USER }
+
+#    # Used to restrict access for large sections of your site
+#    # Note: Only the *first* access control that matches will be used
+#    access_control:
+#        # matches /admin/users/*
+#        - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
+#
+#        # matches /admin/* except for anything matching the above rule
+#        - { path: '^/admin', roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+
+framework:
+    rate_limiter:
+        # define 2 rate limiters (one for username+IP, the other for IP)
+        username_ip_login:
+            policy: token_bucket
+            limit: 5
+            rate: { interval: '5 minutes' }
+
+        ip_login:
+            policy: sliding_window
+            limit: 50
+            interval: '15 minutes'
+
+services:
+    # our custom login rate limiter
+    app.login_rate_limiter:
+        class: Symfony\Component\Security\Http\RateLimiter\DefaultLoginRateLimiter
+        arguments:
+            # globalFactory is the limiter for IP
+            $globalFactory: '@limiter.ip_login'
+            # localFactory is the limiter for username+IP
+            $localFactory: '@limiter.username_ip_login'

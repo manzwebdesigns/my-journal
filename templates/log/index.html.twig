@@ -12,9 +12,15 @@
     <h1>Hello {{ user.fullName }}! ✅</h1>
 
     {% for l in log %}
-        <div class="border border-dark">
-            Log Date: {{ l.LogDate|date('yy-m-d') }}<a href="{{ path('edit_log', {'id': l.id}) }}" class="btn btn-warning pull-right">Edit</a><br>
-            Log Entry: {{ l.LogMessage|raw }}
+        <div class="border border-dark row log">
+            <div class="col-md-10">
+                Log Date: {{ l.LogDate|date('Y-m-d') }}<br>
+                Log Entry: {{ l.LogMessage|raw }}
+            </div>
+            <div class="col-md-2">
+                <a href="{{ path('edit_log', {'id': l.id}) }}" class="btn btn-warning pull-right">Edit</a>
+                <a href="{{ path('delete_log', {'id': l.id}) }}" class="btn btn-danger pull-right">Delete</a><br>
+            </div>
         </div>
     {% endfor %}
 </div>

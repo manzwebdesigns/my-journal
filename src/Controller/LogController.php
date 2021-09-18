@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use Exception;
 use App\Entity\{Log, User};
 use App\Form\Type\LogType;
 use DateTime;
@@ -105,4 +106,41 @@ class LogController extends AbstractController {
 		'form' => $form->createView(),
 		] );
 	}
+
+    /**
+     * @Route("/log/delete/{id}", name="delete_log")
+     * @param int $id
+     * @return Response
+     */
+    public function delete(int $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $log = $entityManager->getRepository(Log::class)->find($id);
+
+        if (null === $log) {
+            $this->addFlash(
+                'danger',
+                'Sorry, I can\'t delete that record.  No such log with an ID of ' . $id
+            );
+        } else {
+
+            try {
+                $entityManager->remove($log);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Successfully deleted your record dated ' . $log->getLogDate()->format('Y-m-d')
+                );
+            } catch (Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Attempt to deleted your record dated ' . $log->getLogDate()->format('Y-m-d') .
+                    ' failed with error:\r\n' . $e->getMessage()
+                );
+            }
+        }
+
+        return $this->redirectToRoute('log');
+    }
 }

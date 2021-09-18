@@ -3,6 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-class User implements UserInterface, Serializable {
+class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface {
 	/**
 	 * @var int
 	 *
@@ -157,14 +158,11 @@ class User implements UserInterface, Serializable {
 	 * Returns the roles or permissions granted to the user for security.
 	 */
 	public function getRoles(): array {
-		$r = $this->roles;
+        $r = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $r[] = 'ROLE_USER';
 
-		// guarantees that a user always has at least one role for security
-		if ( empty( $r ) ) {
-			$roles[] = 'ROLE_USER';
-		}
-
-		return array_unique( $r );
+        return array_unique($r);
 	}
 
 	/**

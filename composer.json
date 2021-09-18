@@ -38,6 +38,7 @@
         "symfony/property-access": "5.3.*",
         "symfony/property-info": "5.3.*",
         "symfony/proxy-manager-bridge": "5.3.*",
+        "symfony/rate-limiter": "^5.3",
         "symfony/security-bundle": "^5.3",
         "symfony/security-csrf": "5.3.*",
         "symfony/serializer": "5.3.*",
@@ -75,7 +76,7 @@
             "*": "dist"
         },
         "platform": {
-            "php": "7.4.19"
+            "php": "7.4.23"
           },
         "sort-packages": true
     },

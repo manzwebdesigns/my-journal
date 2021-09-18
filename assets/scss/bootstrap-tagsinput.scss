@@ -49,7 +49,7 @@
 }
 .tt-suggestion.tt-selectable:before {
   content: '\f02b';
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 5 Free', emoji;
   font-weight: 900;
   display: inline-block;
   font-size: 15px;
@@ -98,9 +98,7 @@
   background-color: #ffffff;
   background-image: none;
   border: 2px solid #dce4ec;
-  border-radius: 4px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
+  border-radius: 4px 0 0 4px;
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
@@ -142,8 +140,7 @@
   margin: 1px 0 0 3px;
   border: 0;
   border-radius: .25em;
-  padding: 5px 11px;
-  padding-right: 30px;
+  padding: 5px 30px 5px 11px;
   float: left;
   font-size: 15px;
   line-height: 1.6666667;
@@ -173,7 +170,7 @@
 }
 .bootstrap-tagsinput .tag:before {
   content: '\f02b';
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 5 Free', emoji;
   font-weight: 900;
   display: inline-block;
   font-size: 15px;
@@ -184,7 +181,7 @@
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
   content: '\f00d';
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 5 Free', emoji;
   font-weight: 900;
   display: block;
   font-size: 13px;

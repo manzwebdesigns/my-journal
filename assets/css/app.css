@@ -89,6 +89,7 @@ footer {
     margin-bottom: 12px;
 }
 
-.border.border-dark p {
+.border.border-dark p,
+.border.border-dark.log .col-md-2 a {
     margin-bottom: 0.5em;
 }
