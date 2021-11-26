@@ -42,3 +42,5 @@ yarn-error.log
 /.idea/**
 /*.sql*
 composer.lock
+.idea/deployment.xml
+.idea/sshConfigs.xml
