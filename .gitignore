@@ -39,6 +39,6 @@ yarn-error.log
 
 /.Halite.key
 .lando/.env
-/.idea/
+/.idea/**
 /*.sql*
 composer.lock

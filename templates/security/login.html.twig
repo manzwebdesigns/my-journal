@@ -2,10 +2,7 @@
 
 {% block body_id 'login' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('login') }}
-{% endblock %}
+{% block title 'Login' %}
 
 {% block body %}
     {% if error %}
@@ -21,7 +18,8 @@
                     <legend><i class="fa fa-lock" aria-hidden="true"></i> Secure Login</legend>
                     <div class="form-group">
                         <label class="required" for="username">Username</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+                        <input type="text" id="username" name="_username"
+                               value="{{ last_username }}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label class="required" for="password">Password</label>
@@ -40,4 +38,9 @@
 
 {% block sidebar %}
     {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
 {% endblock %}

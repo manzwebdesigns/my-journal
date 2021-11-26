@@ -29,24 +29,24 @@
         "symfony/flex": "^1.1",
         "symfony/form": "^5.3",
         "symfony/framework-bundle": "^5.3",
-        "symfony/http-client": "5.3.*",
+        "symfony/http-client": "^5.3",
         "symfony/intl": "^5.3",
         "symfony/mailer": "^5.3",
         "symfony/monolog-bundle": "^3.1",
         "symfony/polyfill-intl-messageformatter": "^1.12",
-        "symfony/process": "5.3.*",
-        "symfony/property-access": "5.3.*",
-        "symfony/property-info": "5.3.*",
-        "symfony/proxy-manager-bridge": "5.3.*",
+        "symfony/process": "^5.3",
+        "symfony/property-access": "^5.3",
+        "symfony/property-info": "^5.3",
+        "symfony/proxy-manager-bridge": "^5.3",
         "symfony/rate-limiter": "^5.3",
         "symfony/security-bundle": "^5.3",
-        "symfony/security-csrf": "5.3.*",
-        "symfony/serializer": "5.3.*",
+        "symfony/security-csrf": "^5.3",
+        "symfony/serializer": "^5.3",
         "symfony/string": "^5.3",
-        "symfony/translation": "5.3.*",
-        "symfony/twig-bundle": "5.3.*",
+        "symfony/translation": "^5.3",
+        "symfony/twig-bundle": "^5.3",
         "symfony/validator": "^5.3",
-        "symfony/web-link": "5.3.*",
+        "symfony/web-link": "^5.3",
         "symfony/webpack-encore-bundle": "^1.4",
         "symfony/yaml": "^5.3",
         "symfonycasts/verify-email-bundle": "^1.1",
@@ -67,8 +67,8 @@
         "symfony/debug-bundle": "^5.3",
         "symfony/maker-bundle": "^1.11",
         "symfony/phpunit-bridge": "^5.3",
-        "symfony/stopwatch": "5.3.*",
-        "symfony/web-profiler-bundle": "5.3.*"
+        "symfony/stopwatch": "^5.3",
+        "symfony/web-profiler-bundle": "^5.3"
     },
     "config": {
         "optimize-autoloader": true,
@@ -119,7 +119,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "5.3.*",
+            "require": "^5.3",
             "id": "01ESEMDF774TKCCEX894TDZEMN"
         }
     }

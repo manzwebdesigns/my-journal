@@ -7,11 +7,7 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     {% block stylesheets %}
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-              crossorigin="anonymous">
+        <link href="//fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
@@ -37,9 +33,7 @@
                 {% block sidebar %}
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="{{ path('app_index') }}">
-                                <i class="fa fa-home" aria-hidden="true"></i> Home
-                            </a>
+                            <a href="{{ path('app_index') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                         </li>
 
                         {% if app.user %}
@@ -117,15 +111,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-            integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-            crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
 

@@ -25,6 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('login', './assets/js/login.js')
+    .addEntry('admin', './assets/js/admin.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -67,7 +68,14 @@ Encore
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
-    .addEntry('admin', './assets/js/admin.js')
+    //.addEntry('admin', './assets/js/admin.js')
 ;
 
+// fetch the config, then modify it!
+const config = Encore.getWebpackConfig();
+
+// add an extension
+config.resolve.extensions.push('json');
+
+// export the final config
 module.exports = Encore.getWebpackConfig();
