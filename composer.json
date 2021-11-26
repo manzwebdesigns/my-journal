@@ -32,6 +32,7 @@
         "symfony/http-client": "^5.3",
         "symfony/intl": "^5.3",
         "symfony/mailer": "^5.3",
+        "symfony/mailgun-mailer": "^5.3",
         "symfony/monolog-bundle": "^3.1",
         "symfony/polyfill-intl-messageformatter": "^1.12",
         "symfony/process": "^5.3",
