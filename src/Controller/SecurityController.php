@@ -2,9 +2,7 @@
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -21,7 +19,7 @@ class SecurityController extends AbstractController
     use TargetPathTrait;
 
     /**
-     * @Route("/login", name="security_login")
+     * @Symfony\Component\Routing\Annotation\Route("/login", name="security_login")
      * @param Request $request
      * @param Security $security
      * @param AuthenticationUtils $helper
@@ -55,7 +53,7 @@ class SecurityController extends AbstractController
      * But, this will never be executed. Symfony will intercept this first
      * and handle the logout automatically. See logout in config/packages/security.yaml
      *
-     * @Route("/logout", name="security_logout")
+     * @Symfony\Component\Routing\Annotation\Route("/logout", name="security_logout")
      * @throws Exception
      */
     public function logout(): void

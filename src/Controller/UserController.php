@@ -5,13 +5,12 @@ use App\Form\Type\{ChangePasswordType, UserType};
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Controller used to manage current user.
  *
- * @Route("/profile")
+ * @Symfony\Component\Routing\Annotation\Route("/profile")
  * @IsGranted("ROLE_USER")
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
@@ -19,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/edit", methods="GET|POST", name="user_edit")
+     * @Symfony\Component\Routing\Annotation\Route("/edit", methods="GET|POST", name="user_edit")
      * @param Request $request
      * @return Response
      */
@@ -45,7 +44,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/change-password", methods="GET|POST", name="user_change_password")
+     * @Symfony\Component\Routing\Annotation\Route("/change-password", methods="GET|POST", name="user_change_password")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response

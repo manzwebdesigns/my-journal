@@ -40,6 +40,9 @@ class MomentFormatConverter
 
     /**
      * Returns associated moment.js format.
+     *
+     * @param string $format
+     * @return string
      */
     public function convert(string $format): string
     {

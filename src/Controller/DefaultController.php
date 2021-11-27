@@ -2,19 +2,18 @@
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class DefaultController
  *
- * @Route("/", name="app_")
+ * @Symfony\Component\Routing\Annotation\Route("/", name="app_")
  * @package App\Controller
  */
 class DefaultController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/", name="index")
+     * @Symfony\Component\Routing\Annotation\Route("/", name="index")
      */
     public function index(): Response
     {

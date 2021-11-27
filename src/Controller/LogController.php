@@ -6,12 +6,11 @@ use App\Form\Type\LogType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LogController extends AbstractController {
 	/**
-	 * @Route("/log", name="log")
+	 * @Symfony\Component\Routing\Annotation\Route("/log", name="log")
 	 */
 	public function index(): Response {
 		$this->denyAccessUnlessGranted( 'IS_AUTHENTICATED_FULLY' );
@@ -33,7 +32,7 @@ class LogController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/log/new", name="new_log")
+	 * @Symfony\Component\Routing\Annotation\Route("/log/new", name="new_log")
 	 * @param ValidatorInterface $validator
 	 * @param Request $request
 	 *
@@ -73,7 +72,7 @@ class LogController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/log/edit/{id}", name="edit_log")
+	 * @Symfony\Component\Routing\Annotation\Route("/log/edit/{id}", name="edit_log")
 	 * @param int $id
 	 * @param Request $request
 	 *
@@ -108,7 +107,7 @@ class LogController extends AbstractController {
 	}
 
     /**
-     * @Route("/log/delete/{id}", name="delete_log")
+     * @Symfony\Component\Routing\Annotation\Route("/log/delete/{id}", name="delete_log")
      * @param int $id
      * @return Response
      */
@@ -135,7 +134,7 @@ class LogController extends AbstractController {
             } catch (Exception $e) {
                 $this->addFlash(
                     'danger',
-                    'Attempt to deleted your record dated ' . $log->getLogDate()->format('Y-m-d') .
+                    'Attempt to delete your record dated ' . $log->getLogDate()->format('Y-m-d') .
                     ' failed with error:\r\n' . $e->getMessage()
                 );
             }
