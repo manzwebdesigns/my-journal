@@ -1,8 +1,5 @@
 <?php namespace App\Command;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
-use App\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -47,16 +44,6 @@ class CreateHaliteCommand extends Command
      * @var SymfonyStyle
      */
 	private SymfonyStyle $io;
-
-	private EntityManagerInterface $entityManager;
-	private UserPasswordHasherInterface $passwordEncoder;
-	private Validator $validator;
-	private UserRepository $users;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $encoder, Validator $validator, UserRepository $users)
-    {
-        parent::__construct();
-    }
 
     /**
      * {@inheritdoc}
