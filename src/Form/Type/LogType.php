@@ -2,7 +2,6 @@
 
 use App\Entity\Log;
 use Symfony\Component\Form\{AbstractType, Extension\Core\Type\SubmitType, FormBuilderInterface, FormEvent, FormEvents};
-use DateTime;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LogType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -58,7 +58,7 @@ class LogType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

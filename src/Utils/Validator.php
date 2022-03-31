@@ -22,6 +22,10 @@ use function Symfony\Component\String\u;
  */
 class Validator
 {
+    /**
+     * @param string|null $username
+     * @return string
+     */
     public function validateUsername(?string $username): string
     {
         if (empty($username)) {
@@ -35,6 +39,10 @@ class Validator
         return $username;
     }
 
+    /**
+     * @param string|null $plainPassword
+     * @return string
+     */
     public function validatePassword(?string $plainPassword): string
     {
         if (empty($plainPassword)) {
@@ -48,6 +56,10 @@ class Validator
         return $plainPassword;
     }
 
+    /**
+     * @param string|null $email
+     * @return string
+     */
     public function validateEmail(?string $email): string
     {
         if (empty($email)) {
@@ -61,6 +73,10 @@ class Validator
         return $email;
     }
 
+    /**
+     * @param string|null $fullName
+     * @return string
+     */
     public function validateFullName(?string $fullName): string
     {
         if (empty($fullName)) {

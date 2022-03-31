@@ -44,5 +44,4 @@ yarn-error.log
 composer.lock
 .idea/deployment.xml
 .idea/sshConfigs.xml
-config/secrets/dev/dev.decrypt.private.php
-config/secrets/dev/dev.encrypt.public.php
+/config/secrets/dev/*

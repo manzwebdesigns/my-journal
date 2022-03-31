@@ -3,8 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\{PasswordAuthenticatedUserInterface, UserInterface};
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -136,8 +135,20 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 		return $this;
 	}
 
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+
 	/**
 	 * @return string|null
+     *
+     * @see PasswordAuthenticatedUserInterface
 	 */
 	public function getPassword(): ?string {
 		return $this->password;
@@ -156,6 +167,8 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 
 	/**
 	 * Returns the roles or permissions granted to the user for security.
+     *
+     * @see UserInterface
 	 */
 	public function getRoles(): array {
         $r = $this->roles;
@@ -179,7 +192,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 	/**
 	 * Returns the salt that was originally used to encode the password.
 	 *
-	 * {@inheritdoc}
+     * @see UserInterface
 	 */
 	public function getSalt(): ?string {
 		// We're using bcrypt in security.yaml to encode the password, so
@@ -192,7 +205,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 	/**
 	 * Removes sensitive data from the user.
 	 *
-	 * {@inheritdoc}
+     * @see UserInterface
 	 */
 	public function eraseCredentials(): void {
 		// if you had a plainPassword property, you'd nullify it here
@@ -200,7 +213,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 	}
 
 	/**
-	 * {@inheritdoc}
+     * @see Serializable
 	 */
 	public function serialize(): string {
 		// add $this->salt too if you don't use Bcrypt or Argon2i
@@ -208,7 +221,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
 	}
 
 	/**
-	 * {@inheritdoc}
+     * @see Serializable
 	 */
 	public function unserialize( $serialized ): void {
 		// add $this->salt too if you don't use Bcrypt or Argon2i

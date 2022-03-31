@@ -3,13 +3,15 @@
 use App\Entity\User;
 use App\Form\Type\RegistrationFormType;
 use App\Security\EmailVerifier;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class RegistrationController
@@ -32,14 +34,16 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-	/**
-	 * @Route("/register", name="app_register")
-	 * @param Request $request
-	 * @param UserPasswordHasherInterface $passwordEncoder
-	 *
-	 * @return Response
-	 */
-    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder): Response
+    /**
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @param UserPasswordHasherInterface $passwordEncoder
+     *
+     * @return Response
+     * @throws TransportExceptionInterface
+     */
+    #[Route("/register", name: "app_register")]
+    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -60,7 +64,7 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(['0' => $form->get('roles')->getData()]);
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -72,9 +76,8 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_index');
+            $this->verifyUserEmail($request);
         }
 
         return $this->render('registration/register.html.twig', [
@@ -83,10 +86,10 @@ class RegistrationController extends AbstractController
     }
 
 	/**
-	 * @Route("/verify/email", name="app_verify_email")
 	 * @param Request $request
 	 * @return Response
 	 */
+    #[Route("/verify/email", name: "app_verify_email")]
     public function verifyUserEmail(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
