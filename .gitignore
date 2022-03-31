@@ -38,10 +38,11 @@ yarn-error.log
 ###< Yarn Zero-Installs ###
 
 /.Halite.key
+/Halite.key
 .lando/.env
-/.idea/**
+/.idea
 /*.sql*
 composer.lock
-.idea/deployment.xml
-.idea/sshConfigs.xml
-/config/secrets/dev/*
+/.idea/deployment.xml
+/.idea/sshConfigs.xml
+/config/secrets/*/*
