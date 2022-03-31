@@ -7,15 +7,15 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class DefaultController
  *
- * @Route("/", name="app_")
+ * @Symfony\Component\Routing\Annotation\Route("/", name="app_")
  * @package App\Controller
  */
 class DefaultController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/", name="index")
      */
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('default/index.html.twig', []);
