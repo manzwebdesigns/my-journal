@@ -3,6 +3,7 @@
 use App\Entity\User;
 use App\Form\Type\RegistrationFormType;
 use App\Security\EmailVerifier;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
@@ -10,6 +11,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class RegistrationController
@@ -33,14 +35,15 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Symfony\Component\Routing\Annotation\Route("/register", name="app_register")
      * @param Request $request
+     * @param ManagerRegistry $doctrine
      * @param UserPasswordHasherInterface $passwordEncoder
      *
      * @return Response
      * @throws TransportExceptionInterface
      */
-    public function register(Request $request, UserPasswordHasherInterface $passwordEncoder): Response
+    #[Route("/register", name: "app_register")]
+    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -61,7 +64,7 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(['0' => $form->get('roles')->getData()]);
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -83,10 +86,10 @@ class RegistrationController extends AbstractController
     }
 
 	/**
-	 * @Symfony\Component\Routing\Annotation\Route("/verify/email", name="app_verify_email")
 	 * @param Request $request
 	 * @return Response
 	 */
+    #[Route("/verify/email", name: "app_verify_email")]
     public function verifyUserEmail(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

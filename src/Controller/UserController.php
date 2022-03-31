@@ -2,27 +2,31 @@
 
 use App\Entity\User;
 use App\Form\Type\{ChangePasswordType, UserType};
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Controller used to manage current user.
  *
- * @Symfony\Component\Routing\Annotation\Route("/profile")
  * @IsGranted("ROLE_USER")
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
+#[Route("/profile")]
 class UserController extends AbstractController
 {
     /**
-     * @Symfony\Component\Routing\Annotation\Route("/edit", methods="GET|POST", name="user_edit")
      * @param Request $request
+     * @param ManagerRegistry $doctrine
+     *
      * @return Response
      */
-    public function edit(Request $request): Response
+    #[Route("/edit", methods: "GET|POST", name: "user_edit")]
+    public function edit(Request $request, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
 
@@ -30,7 +34,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             $this->addFlash('success', 'user.updated_successfully');
 
@@ -44,12 +48,14 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Symfony\Component\Routing\Annotation\Route("/change-password", methods="GET|POST", name="user_change_password")
      * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
+     * @param ManagerRegistry $doctrine
+     * @param UserPasswordHasherInterface $encoder
+     *
      * @return Response
      */
-    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
+    #[Route("/change-password", methods: "GET|POST", name: "user_change_password")]
+    public function changePassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $encoder): Response
     {
 	    /** @var User $user */
 	    $user = $this->getUser();
@@ -58,9 +64,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));
+            $user->setPassword($encoder->hashPassword($user, $form->get('newPassword')->getData()));
 
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             return $this->redirectToRoute('security_logout');
         }

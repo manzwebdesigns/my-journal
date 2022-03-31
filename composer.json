@@ -5,7 +5,7 @@
     "type": "project",
     "minimum-stability": "stable",
     "require": {
-        "php": "^8.0",
+        "php": "^8.0.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-xml": "*",
@@ -20,41 +20,41 @@
         "michaeldegroot/doctrine-encrypt-bundle": "^5.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "predis/predis": "^1.1",
-        "sensio/framework-extra-bundle": "^5.6",
+        "sensio/framework-extra-bundle": "^6.0",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "^5.3",
-        "symfony/console": "^5.3",
+        "symfony/asset": "^6.0",
+        "symfony/console": "^6.0",
         "symfony/deprecation-contracts": "^2.5",
-        "symfony/dotenv": "^5.3",
-        "symfony/expression-language": "^5.3",
+        "symfony/dotenv": "^6.0",
+        "symfony/expression-language": "^6.0",
         "symfony/filesystem": "^4.4|^5.0",
         "symfony/flex": "^1.1",
-        "symfony/form": "^5.3",
-        "symfony/framework-bundle": "^5.3",
-        "symfony/http-client": "^5.3",
-        "symfony/intl": "^5.3",
-        "symfony/mailer": "^5.3",
-        "symfony/mailgun-mailer": "^5.3",
+        "symfony/form": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/http-client": "^6.0",
+        "symfony/intl": "^6.0",
+        "symfony/mailer": "^6.0",
+        "symfony/mailgun-mailer": "^6.0",
         "symfony/monolog-bundle": "^3.7",
         "symfony/polyfill-ctype": "~1.23",
         "symfony/polyfill-intl-messageformatter": "^1.12",
         "symfony/polyfill-php80": "^1.23",
         "symfony/polyfill-php81": "^1.23",
-        "symfony/process": "^5.3",
-        "symfony/property-access": "^5.3",
-        "symfony/property-info": "^5.3",
-        "symfony/proxy-manager-bridge": "^5.3",
-        "symfony/rate-limiter": "^5.3",
-        "symfony/security-bundle": "^5.3",
-        "symfony/security-csrf": "^5.3",
-        "symfony/serializer": "^5.3",
-        "symfony/string": "^5.3",
-        "symfony/translation": "^5.3",
-        "symfony/twig-bundle": "^5.3",
-        "symfony/validator": "^5.3",
-        "symfony/web-link": "^5.3",
+        "symfony/process": "^6.0",
+        "symfony/property-access": "^6.0",
+        "symfony/property-info": "^6.0",
+        "symfony/proxy-manager-bridge": "^6.0",
+        "symfony/rate-limiter": "^6.0",
+        "symfony/security-bundle": "^6.0",
+        "symfony/security-csrf": "^6.0",
+        "symfony/serializer": "^6.0",
+        "symfony/string": "^6.0",
+        "symfony/translation": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/validator": "^6.0",
+        "symfony/web-link": "^6.0",
         "symfony/webpack-encore-bundle": "^1.4",
-        "symfony/yaml": "^5.3",
+        "symfony/yaml": "^6.0",
         "symfonycasts/verify-email-bundle": "^1.6",
         "tgalopin/html-sanitizer-bundle": "^1.4",
         "twig/extra-bundle": "^3.0",
@@ -65,13 +65,13 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "roave/security-advisories": "dev-master",
-        "symfony/browser-kit": "^5.3",
-        "symfony/css-selector": "^5.3",
-        "symfony/debug-bundle": "^5.3",
+        "symfony/browser-kit": "^6.0",
+        "symfony/css-selector": "^6.0",
+        "symfony/debug-bundle": "^6.0",
         "symfony/maker-bundle": "^1.11",
-        "symfony/phpunit-bridge": "^5.3",
-        "symfony/stopwatch": "^5.3",
-        "symfony/web-profiler-bundle": "^5.3"
+        "symfony/phpunit-bridge": "^6.0",
+        "symfony/stopwatch": "^6.0",
+        "symfony/web-profiler-bundle": "^6.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -79,9 +79,12 @@
             "*": "dist"
         },
         "platform": {
-            "php": "8.0"
+            "php": "8.0.2"
           },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -114,7 +117,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "^5.3",
+            "require": "^6.0",
             "id": "01ESEMDF774TKCCEX894TDZEMN"
         }
     }

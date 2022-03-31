@@ -40,6 +40,10 @@ class EmailVerifier
     }
 
     /**
+     * @param string $verifyEmailRouteName
+     * @param UserInterface $user
+     * @param TemplatedEmail $email
+     *
      * @throws TransportExceptionInterface
      */
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
@@ -61,6 +65,9 @@ class EmailVerifier
     }
 
     /**
+     * @param Request $request
+     * @param UserInterface $user
+     *
      * @throws VerifyEmailExceptionInterface
      */
     public function handleEmailConfirmation(Request $request, UserInterface $user): void

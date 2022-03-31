@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Log
 {
     /**
+     * Page Log Count
+     */
+    public const NUM_ITEMS = 25;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -92,11 +97,19 @@ class Log
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getUserId(): int
     {
         return $this->user_id;
     }
 
+    /**
+     * @param int $user_id
+     *
+     * @return $this
+     */
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
@@ -104,11 +117,19 @@ class Log
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getPublishedAt(): ?DateTimeInterface
     {
         return $this->publishedAt;
     }
 
+    /**
+     * @param DateTimeInterface $publishedAt
+     *
+     * @return $this
+     */
     public function setPublishedAt( DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;

@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use App\Entity\{Log, User};
 use App\Form\Type\LogType;
@@ -7,19 +8,25 @@ use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Log Controller
+ */
 class LogController extends AbstractController {
-	/**
-	 * @Symfony\Component\Routing\Annotation\Route("/log", name="log")
-	 */
-	public function index(): Response {
+    /**
+     * @param ManagerRegistry $doctrine
+     *
+     * @return Response
+     */
+    #[Route("/log", name: "log")]
+	public function index( ManagerRegistry $doctrine ): Response {
 		$this->denyAccessUnlessGranted( 'IS_AUTHENTICATED_FULLY' );
 
 		/** @var User $user */
 		$user    = $this->getUser();
 		$user_id = $user->getId();
-		$log     = $this->getDoctrine()
-		                ->getRepository( Log::class )
+		$log     = $doctrine->getRepository( Log::class )
 		                ->findBy( [ 'user_id' => $user_id ], [ 'log_date' => 'DESC' ] );
 
 		if ( ! $log ) {
@@ -31,14 +38,15 @@ class LogController extends AbstractController {
 		return $this->render( 'log/index.html.twig', [ 'log' => $log, 'user' => $user ] );
 	}
 
-	/**
-	 * @Symfony\Component\Routing\Annotation\Route("/log/new", name="new_log")
-	 * @param ValidatorInterface $validator
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
-	public function new( ValidatorInterface $validator, Request $request ): Response {
+    /**
+     * @param ManagerRegistry $doctrine
+     * @param ValidatorInterface $validator
+     * @param Request $request
+     *
+     * @return Response
+     */
+    #[Route("/log/new", name: "new_log")]
+	public function new( ManagerRegistry $doctrine, ValidatorInterface $validator, Request $request ): Response {
 		$this->denyAccessUnlessGranted( 'IS_AUTHENTICATED_FULLY' );
 
 		$log = new Log();
@@ -53,7 +61,7 @@ class LogController extends AbstractController {
 		$form->handleRequest( $request );
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$log = $form->getData();
-			$entityManager = $this->getDoctrine()->getManager();
+			$entityManager = $doctrine->getManager();
 			$entityManager->persist( $log );
 			$entityManager->flush();
 
@@ -71,16 +79,17 @@ class LogController extends AbstractController {
 		] );
 	}
 
-	/**
-	 * @Symfony\Component\Routing\Annotation\Route("/log/edit/{id}", name="edit_log")
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
-	public function update(int $id, Request $request): Response
+    /**
+     * @param int $id
+     * @param ManagerRegistry $doctrine
+     * @param Request $request
+     *
+     * @return Response
+     */
+    #[Route("/log/edit/{id}", name: "edit_log")]
+	public function update(int $id, ManagerRegistry $doctrine, Request $request): Response
 	{
-		$entityManager = $this->getDoctrine()->getManager();
+		$entityManager = $doctrine->getManager();
 		$log = $entityManager->getRepository(Log::class)->find($id);
 
 		if (!$log) {
@@ -93,7 +102,7 @@ class LogController extends AbstractController {
 		$form->handleRequest( $request );
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$log = $form->getData();
-			$entityManager = $this->getDoctrine()->getManager();
+			$entityManager = $doctrine->getManager();
 			$entityManager->persist( $log );
 			$entityManager->flush();
 
@@ -107,13 +116,15 @@ class LogController extends AbstractController {
 	}
 
     /**
-     * @Symfony\Component\Routing\Annotation\Route("/log/delete/{id}", name="delete_log")
      * @param int $id
+     * @param ManagerRegistry $doctrine
+     *
      * @return Response
      */
-    public function delete(int $id): Response
+    #[Route("/log/delete/{id}", name: "delete_log")]
+    public function delete(int $id, ManagerRegistry $doctrine): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $doctrine->getManager();
         $log = $entityManager->getRepository(Log::class)->find($id);
 
         if (null === $log) {
