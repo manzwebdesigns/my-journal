@@ -24,6 +24,10 @@
                 <a href="{{ path('delete_log', {'id': l.id}) }}" class="btn btn-danger pull-right">Delete</a><br>
             </div>
         </div>
+    {% else %}
+        <div class="border border-dark row log">
+            You don't have any logs yet, please start logging and watch them appear!
+        </div>
     {% endfor %}
 </div>
 {% endblock %}
