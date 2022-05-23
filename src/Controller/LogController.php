@@ -29,12 +29,6 @@ class LogController extends AbstractController {
 		$log     = $doctrine->getRepository( Log::class )
 		                ->findBy( [ 'user_id' => $user_id ], [ 'log_date' => 'DESC' ] );
 
-		if ( ! $log ) {
-			throw $this->createNotFoundException(
-				'No logs found for user_id ' . $user_id
-			);
-		}
-
 		return $this->render( 'log/index.html.twig', [ 'log' => $log, 'user' => $user ] );
 	}
 
@@ -80,24 +74,16 @@ class LogController extends AbstractController {
 	}
 
     /**
-     * @param int $id
+     * @param Log $log
      * @param ManagerRegistry $doctrine
      * @param Request $request
      *
      * @return Response
      */
     #[Route("/log/edit/{id}", name: "edit_log")]
-	public function update(int $id, ManagerRegistry $doctrine, Request $request): Response
+	public function update(Log $log, ManagerRegistry $doctrine, Request $request): Response
 	{
-		$entityManager = $doctrine->getManager();
-		$log = $entityManager->getRepository(Log::class)->find($id);
-
-		if (!$log) {
-			throw $this->createNotFoundException(
-				'No log found for id ' . $id
-			);
-		}
-		$form = $this->createForm( LogType::class, $log );
+        $form = $this->createForm( LogType::class, $log );
 
 		$form->handleRequest( $request );
 		if ( $form->isSubmitted() && $form->isValid() ) {
@@ -116,39 +102,30 @@ class LogController extends AbstractController {
 	}
 
     /**
-     * @param int $id
+     * @param Log $log
      * @param ManagerRegistry $doctrine
      *
      * @return Response
      */
     #[Route("/log/delete/{id}", name: "delete_log")]
-    public function delete(int $id, ManagerRegistry $doctrine): Response
+    public function delete(Log $log, ManagerRegistry $doctrine): Response
     {
-        $entityManager = $doctrine->getManager();
-        $log = $entityManager->getRepository(Log::class)->find($id);
+        try {
+            $entityManager = $doctrine->getManager();
 
-        if (null === $log) {
+            $entityManager->remove($log);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Successfully deleted your record dated ' . $log->getLogDate()->format('Y-m-d')
+            );
+        } catch (Exception $e) {
             $this->addFlash(
                 'danger',
-                'Sorry, I can\'t delete that record.  No such log with an ID of ' . $id
+                'Attempt to delete your record dated ' . $log->getLogDate()->format('Y-m-d') .
+                ' failed with error:\r\n' . $e->getMessage()
             );
-        } else {
-
-            try {
-                $entityManager->remove($log);
-                $entityManager->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Successfully deleted your record dated ' . $log->getLogDate()->format('Y-m-d')
-                );
-            } catch (Exception $e) {
-                $this->addFlash(
-                    'danger',
-                    'Attempt to delete your record dated ' . $log->getLogDate()->format('Y-m-d') .
-                    ' failed with error:\r\n' . $e->getMessage()
-                );
-            }
         }
 
         return $this->redirectToRoute('log');
