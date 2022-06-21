@@ -3,11 +3,11 @@
 use App\Entity\User;
 use App\Form\Type\{ChangePasswordType, UserType};
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Controller used to manage current user.
@@ -25,7 +25,7 @@ class UserController extends AbstractController
      *
      * @return Response
      */
-    #[Route("/edit", methods: "GET|POST", name: "user_edit")]
+    #[Route("/edit", name: "user_edit", methods: "GET|POST")]
     public function edit(Request $request, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
@@ -54,7 +54,7 @@ class UserController extends AbstractController
      *
      * @return Response
      */
-    #[Route("/change-password", methods: "GET|POST", name: "user_change_password")]
+    #[Route("/change-password", name: "user_change_password", methods: "GET|POST")]
     public function changePassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $encoder): Response
     {
 	    /** @var User $user */
