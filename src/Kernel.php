@@ -10,7 +10,4 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
-        $container->import('../config/{packages}/'.$this->environment.'/*.yaml');
-        $routes->import('../config/{routes}/*.yaml');
-        $routes->import('../config/{routes}.yaml');
 }
