@@ -11,6 +11,10 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body id="{% block body_id %}{% endblock %}">
@@ -33,7 +37,7 @@
                 {% block sidebar %}
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="{{ path('app_index') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                            <a href="{{ path('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                         </li>
 
                         {% if app.user %}
@@ -108,10 +112,6 @@
             </div>
         </div>
     </footer>
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 </body>

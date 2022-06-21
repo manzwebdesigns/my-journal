@@ -7,9 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class DefaultController
  *
- * @Symfony\Component\Routing\Annotation\Route("/", name="app_")
  * @package App\Controller
  */
+#[Symfony\Component\Routing\Annotation\Route(path: '/', name: 'app_')]
 class DefaultController extends AbstractController
 {
     /**

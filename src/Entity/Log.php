@@ -26,22 +26,22 @@ class Log
     private ?int $id;
 
 	/**
-	 * @Assert\NotBlank()
-	 * @ORM\Column(type="date", nullable=false)
-	 */
-	private DateTime $log_date;
+  * @ORM\Column(type="date", nullable=false)
+  */
+ #[Assert\NotBlank]
+ private DateTime $log_date;
 
 	/**
-	 * @Assert\NotBlank()
-	 * @Encrypted
-	 * @ORM\Column(type="text", nullable=false)
-	 */
-	private string $log_message;
+  * @Encrypted
+  * @ORM\Column(type="text", nullable=false)
+  */
+ #[Assert\NotBlank]
+ private string $log_message;
 
 	/**
-	 * @Assert\NotBlank()
-	 * @ORM\Column(type="integer", nullable=false)
-	 */
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    #[Assert\NotBlank]
     private int $user_id;
 
     /**

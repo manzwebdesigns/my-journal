@@ -31,14 +31,14 @@ class SecurityController extends AbstractController
     {
         // if user is already logged in, don't display the login page again
         if ($security->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('homepage');
         }
 
         // this statement solves an edge-case: if you change the locale in the login
         // page, after a successful login you are redirected to a page in the previous
         // locale. This code regenerates the referrer URL whenever the login page is
         // browsed, to ensure that its locale is always the current one.
-        $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('app_index'));
+        $this->saveTargetPath($request->getSession(), 'main', $this->generateUrl('homepage'));
 
         return $this->render('security/login.html.twig', [
             // last username entered by the user (if any)
