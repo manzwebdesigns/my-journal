@@ -1,9 +1,20 @@
 security:
+#<<<<<<< ours
+    enable_authenticator_manager: true
+#    password_hashers:
+        # Our user class and the algorithm we'll use to encode passwords
+        # 'auto' means to let Symfony choose the best possible password hasher (Argon2 or Bcrypt)
+        # https://symfony.com/doc/current/security.html#c-encoding-passwords
+#        App\Entity\User:
+#            algorithm: auto
+
+#=======
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
 
+#>>>>>>> theirs
     providers:
         # https://symfony.com/doc/current/security/user_provider.html
         # In this example, users are stored via Doctrine in the database
@@ -24,11 +35,48 @@ security:
             security: false
 
         main:
+#<<<<<<< ours
+            # this firewall applies to all URLs
+            pattern: ^/
+
+            # but the firewall does not require login on every page
+            # denying access is done in access_control or in your controllers
+            #anonymous: true
             lazy: true
-            provider: users_in_memory
+
+            # The user provider to use.
+            provider: database_users
+
+            # This allows the user to login by submitting a username and password
+            # Reference: https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                # The route name that the login form submits to
+                check_path: security_login
+                # The name of the route where the login form lives
+                # When the user tries to access a protected page, they are redirected here
+                login_path: security_login
+                # Secure the login form against CSRF
+                # Reference: https://symfony.com/doc/current/security/csrf.html#csrf-protection-in-login-forms
+                #csrf_token_generator: security.csrf.token_manager
+                # The page users are redirect to when there is no previous page stored in the
+                # session (for example when the users access directly to the login page).
+                default_target_path: app_index
+
+            logout:
+                # The route name the user can go to in order to logout
+                path: security_logout
+                # The name of the route to redirect to after logging out
+                target: homepage
+
+            # by default, the feature allows 5 login attempts per minute
+            login_throttling: null
+#=======
+#            lazy: true
+#            provider: users_in_memory
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
+#>>>>>>> theirs
 
 #            # configure the maximum login attempts (per minute)
 #            login_throttling:
@@ -44,6 +92,7 @@ security:
 #                limiter: app.my_login_rate_limiter
 
     access_control:
+#<<<<<<< ours
         # require ROLE_ADMIN for /admin*
         - { path: '^/admin', roles: ROLE_ADMIN }
 
@@ -88,7 +137,7 @@ services:
             $globalFactory: '@limiter.ip_login'
             # localFactory is the limiter for username+IP
             $localFactory: '@limiter.username_ip_login'
-
+#=======
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
@@ -104,3 +153,4 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+#>>>>>>> theirs
