@@ -57,7 +57,7 @@
         "symfony/webpack-encore-bundle": "^1.4",
         "symfony/yaml": "^6.0",
         "symfonycasts/verify-email-bundle": "^1.6",
-        "tgalopin/html-sanitizer-bundle": "^1.4",
+        "symfony/html-sanitizer": "^6.0",
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.0"
     },
