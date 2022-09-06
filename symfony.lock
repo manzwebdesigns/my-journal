@@ -150,9 +150,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "league/uri-parser": {
-        "version": "1.4.1"
-    },
     "masterminds/html5": {
         "version": "2.7.3"
     },
@@ -623,21 +620,6 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.1.1"
-    },
-    "tgalopin/html-sanitizer": {
-        "version": "1.4.0"
-    },
-    "tgalopin/html-sanitizer-bundle": {
-        "version": "1.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.0",
-            "ref": "95b935177db9abb65356fe19e57fe5abd908b5b8"
-        },
-        "files": [
-            "config/packages/html_sanitizer.yaml"
-        ]
     },
     "twig/extra-bundle": {
         "version": "v3.0.3"
