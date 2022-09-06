@@ -7,6 +7,7 @@
         "node-sass": "^7.0.0",
         "regenerator-runtime": "^0.13.9",
         "sass-loader": "^13.0.2",
+        "scss-tokenizer": "^0.4.3",
         "stimulus": "^3.0.1",
         "webpack-notifier": "^1.15.0"
     },
