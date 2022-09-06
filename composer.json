@@ -31,6 +31,7 @@
         "symfony/flex": "^1.1",
         "symfony/form": "^6.0",
         "symfony/framework-bundle": "^6.0",
+        "symfony/html-sanitizer": "^6.0",
         "symfony/http-client": "^6.0",
         "symfony/intl": "^6.0",
         "symfony/mailer": "^6.0",
@@ -57,7 +58,6 @@
         "symfony/webpack-encore-bundle": "^1.4",
         "symfony/yaml": "^6.0",
         "symfonycasts/verify-email-bundle": "^1.6",
-        "symfony/html-sanitizer": "^6.0",
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.0"
     },
