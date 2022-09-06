@@ -2,6 +2,7 @@
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\{InputInterface, InputOption};
 use Symfony\Component\Console\Output\{BufferedOutput, OutputInterface};
@@ -9,26 +10,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Mailer\{Exception\TransportExceptionInterface, MailerInterface};
 use Symfony\Component\Mime\Email;
 
-/**
- * A console command that lists all the existing users.
- *
- * To use this command, open a terminal window, enter into your project directory
- * and execute the following:
- *
- *     $ php bin/console app:list-users
- *
- * Check out the code of the src/Command/AddUserCommand.php file for
- * the full explanation about Symfony commands.
- *
- * See https://symfony.com/doc/current/console.html
- *
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
- */
+#[AsCommand(name: 'app:list-users')]
 class ListUsersCommand extends Command
 {
-    // a good practice is to use the 'app:' prefix to group all your custom application commands
-    protected static $defaultName = 'app:list-users';
-
     private MailerInterface $mailer;
     private $emailSender;
     private UserRepository $users;

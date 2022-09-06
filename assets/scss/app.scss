@@ -4,320 +4,96 @@
 
 /* Basic styles
    ------------------------------------------------------------------------- */
-p, ul, ol {
-  font-size: 19px;
-  margin-bottom: 1.5em
-}
-
-li {
-  margin-bottom: 0.5em
-}
-
-code {
-  background: #ecf0f1;
-  color: #2c3e50
-}
-
-.text-danger, .text-danger:hover {
-  color: #e74c3c
-}
-
-i {
-  margin-right: 0.25em
-}
-
-.table.table-middle-aligned th,
-.table.table-middle-aligned td {
-  vertical-align: middle;
-}
-
-.doclink {
-    color: inherit
-}
-
-/* Utilities
-   ------------------------------------------------------------------------- */
-.m-b-0 { margin-bottom: 0 }
-
-/* Page elements
-   ------------------------------------------------------------------------- */
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh
+  background: -webkit-linear-gradient(top, rgb(136,199,201) 58%, rgb(202,232,235) 100%);
+  background: -moz-linear-gradient(top, rgb(136,199,201) 58%, rgb(202,232,235) 100%);
+  background: -ms-linear-gradient(top, rgb(136,199,201) 58%, rgb(202,232,235) 100%);
+  background: -o-linear-gradient(top, rgb(136,199,201) 58%, rgb(202,232,235) 100%);
+  background: linear-gradient(top, rgb(136,199,201) 58%, rgb(202,232,235) 100%);
+  padding: 3%;
 }
 
-header {
-  margin-bottom: 2em
+h1, h2, h3, h4, h5, h6 {
+  font-family: Montserrat, sans-serif;
 }
 
-header ul.nav li {
-  margin-bottom: 0
+.paper {
+  font: normal 18px/2 "Lucida Grande", arial, sans-serif;
+  width: 90vw;
+  min-height: 80vh;
+  margin: 0 auto;
+  padding: 6px 5px 4px 64px;
+  position: relative;
+  color: #444;
+  line-height: 20px;
+  border: 1px solid #d2d2d2;
+  background: #ffeeba;
+  background: -webkit-gradient(linear, 0 0, 0 75%, from(#888888), color-stop(4%, #ffeeba)) 0 4px;
+  background: -webkit-linear-gradient(top, #888 -20%, #ffeeba 8%) 0 4px;
+  background: -moz-linear-gradient(top, #888 -20%, #ffeeba 8%) 0 4px;
+  background: -ms-linear-gradient(top, #888 -20%, #ffeeba 8%) 0 4px;
+  background: -o-linear-gradient(top, #888 -20%, #ffeeba 8%) 0 4px;
+  background: linear-gradient(top, #888 -20%, #ffeeba 8%) 0 4px;
+  -webkit-background-size: 100% 32px;
+  -moz-background-size: 100% 32px;
+  -ms-background-size: 100% 32px;
+  -o-background-size: 100% 32px;
+  background-size: 100% 32px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
 }
 
-header .locales {
-  min-width: 190px;
-}
-header .locales a {
-  color: #212529;
-  padding: 3px 15px;
-}
-header .locales a small {
-  border-radius: 4px;
-  border: 2px solid #dee2e6;
-  color: #7b8a8b;
-  float: left;
-  font-size: 12px;
-  line-height: 1.1;
-  margin: 2px 10px 0 0;
-  min-width: 26px;
-  padding: 0 3px;
-  text-align: center;
-  text-transform: uppercase;
-}
-header .locales .active small,
-header .locales a:hover small {
-  color: inherit;
+.paper::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  top: 0;
+  left: 10%;
+  bottom: 0;
+  border: 2px solid;
+  border-color: transparent #cc6666;
 }
 
-.body-container {
-  flex: 1;
-  /* needed to prevent pages with a very small height and browsers not supporting flex */
-  min-height: 600px
+div#sidebar li {
+  margin: 3px;
 }
 
-.body-container #main h1, .body-container #main h2 {
-  margin-top: 0
-}
-
-#sidebar .section {
-  margin-bottom: 2em
-}
-
-#sidebar p {
-  font-size: 15px
-}
-
-#sidebar p + p {
-  margin: 1.5em 0 0
-}
-
-footer {
-  background: #ecf0f1;
-  padding-top: 2em;
-  padding-bottom: 2em
-}
-
-footer p {
-  color: #7b8a8b;
-  font-size: 13px;
-  margin-bottom: 0.25em
-}
-
-footer #footer-resources {
-  text-align: right
-}
-
-footer #footer-resources i {
-  color: #7b8a8b;
-  font-size: 28.5px;
-  margin-left: 0.5em
-}
-
-footer #footer-copyright {
-  text-align: left;
-}
-
-/* Misc. elements
-   ------------------------------------------------------------------------- */
-.section.rss a {
-  color: #f39c12;
-  font-size: 21px;
-}
-
-/* Forms
-   ------------------------------------------------------------------------- */
-.form-group.has-error .form-control {
-  border-color: #e74c3c
-}
-
-.form-group.has-error .control-label {
-  color: #e74c3c
-}
-
-.form-group.has-error .help-block {
-  background-color: #e74c3c;
-  color: #fff;
-  font-size: 15px;
-  padding: 1em
-}
-
-.form-group.has-error .help-block ul,
-.form-group.has-error .help-block li {
-  margin-bottom: 0
-}
-.form-group.has-error .help-block li + li {
-  margin-top: 0.5em;
+.input-group.date {
+  width: 200px;
 }
 
 textarea {
-  max-width: 100%
-}
-
-/* Page: 'Technical Requirements Checker'
-   ------------------------------------------------------------------------- */
-body#requirements_checker header h1 {
-  margin-bottom: 0;
-  margin-top: 0
-}
-
-body#requirements_checker header h1 span {
-  font-size: 120%;
-  opacity: 0.7;
-  padding: 0 5px
-}
-
-body#requirements_checker .panel li {
-  margin-bottom: 1em
-}
-
-/* Page: 'Homepage'
-   ------------------------------------------------------------------------- */
-body#homepage #main {
-  text-align: center
-}
-
-/* Page: 'Login'
-   ------------------------------------------------------------------------- */
-body#login #login-users-help p {
-  font-size: 15px;
-  line-height: 1.42857
-}
-
-body#login #login-users-help p:last-child {
-  margin-bottom: 0
-}
-
-body#login #login-users-help p .label {
-  margin-right: 5px
-}
-
-body#login #login-users-help p .console {
   display: block;
-  margin: 5px 0;
-  padding: 10px
+  width: 94%;
+  margin: 0 auto;
+  padding: 3.8% 3%;
+  border: none;
+  outline: none;
+  height: 94%;
+  background: transparent;
+  line-height: 20px;
 }
 
-/* Common Blog page elements
-   ------------------------------------------------------------------------- */
-.post-metadata {
-  color: #b4bcc2;
-  font-size: 19px;
-  margin-bottom: 16px;
-}
-.post-metadata .metadata {
-  margin-right: 1.5em;
+label.required:after {
+  content: ' *';
+  color: red;
 }
 
-.post-tags .label {
-  margin-right: 5px;
+footer {
+  margin-top: 0;
 }
 
-/* Page: 'Blog index'
-   ------------------------------------------------------------------------- */
-body#blog_index #main h1,
-body#blog_index #main p {
-  margin-bottom: 0.5em
+.border.border-dark {
+  padding: 6px;
+  border-radius: 6px;
+  margin-bottom: 12px;
 }
 
-body#blog_index article.post {
-  margin-bottom: 3em;
-}
-
-body#blog_index .post-metadata {
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-body#blog_index .post-tags .label-default {
-  background-color: #e9ecec;
-  color: #6d8283;
-}
-body#blog_index .post-tags .label-default i {
-  color: #a3b2b2;
-}
-
-/* Page: 'Blog post show'
-   ------------------------------------------------------------------------- */
-body#blog_post_show #main h3 {
-  margin-bottom: 0.75em
-}
-
-body#blog_post_show .post-tags .label-default {
-  background-color: #e9ecec;
-  color: #6D8283;
-  font-size: 16px;
-  margin-right: 10px;
-  padding: .4em 1em .5em;
-}
-body#blog_post_show .post-tags .label-default i {
-  color: #95A6A7;
-}
-
-body#blog_post_show #post-add-comment {
-  margin: 2em 0
-}
-
-body#blog_post_show #post-add-comment p {
-  margin-bottom: 0
-}
-
-body#blog_post_show #post-add-comment p a.btn {
-  margin-right: 0.5em
-}
-
-body#blog_post_show .post-comment {
-  margin-bottom: 2em
-}
-
-body#blog_post_show .post-comment h4 {
-  font-size: 13px;
-  line-height: 1.42857;
-  margin-top: 0
-}
-
-body#blog_post_show .post-comment h4 strong {
-  display: block
-}
-
-/* Page: 'Comment form error'
-   ------------------------------------------------------------------------- */
-body#comment_form_error h1.text-danger {
-  margin-bottom: 1em
-}
-
-@media (min-width: 768px) and (max-width: 1200px) {
-  .container {
-    width: 98%;
-  }
-}
-
-/* Page: 'Blog search'
-   ------------------------------------------------------------------------- */
-body#blog_search #main h1,
-body#blog_search #main p {
-  margin-bottom: 0.5em
-}
-
-body#blog_search article.post:first-child {
-  margin-top: 2em;
-}
-
-body#blog_search article.post {
-  margin-bottom: 2em;
-}
-
-body#blog_search .post-metadata {
-  font-size: 16px;
-  margin-bottom: 8px;
+.border.border-dark p,
+.border.border-dark.log .col-md-2 a {
+  margin-bottom: 0.5em;
 }
