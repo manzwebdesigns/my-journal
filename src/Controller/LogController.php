@@ -61,7 +61,7 @@ class LogController extends AbstractController {
 
 			$errors = $validator->validate( $log );
 			if ( count( $errors ) > 0 ) {
-				return new Response( (string) $errors, \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST );
+				return new Response( (string) $errors, Response::HTTP_BAD_REQUEST );
 			}
 
 			return $this->redirectToRoute( 'log' );
