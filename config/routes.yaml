@@ -9,5 +9,7 @@ homepage:
         template: default/index.html.twig
 
 controllers:
-    resource: ../src/Controller/
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
     type: attribute
