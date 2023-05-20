@@ -47,7 +47,7 @@ class LogType extends AbstractType
             // of the form handling process.
             // See https://symfony.com/doc/current/form/events.html
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                /** @var Log */
+                /** @var Log $log */
                 $log = $event->getData();
                 if (null !== $log->getLogMessage()) {
                     $log->setLogDate($log->getLogDate())

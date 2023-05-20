@@ -70,7 +70,7 @@ class Log
      *
      * @return Log
      */
-    public function setLogDate($log_date): Log
+    public function setLogDate(mixed $log_date): Log
     {
         $this->log_date = $log_date;
 
